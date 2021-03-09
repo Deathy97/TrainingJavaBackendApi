@@ -2,3 +2,5 @@
 .settings/
 .project
 .classpath
+*.log
+/src/main/resources/database.*
