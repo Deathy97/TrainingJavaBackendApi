@@ -4,3 +4,5 @@
 .classpath
 *.log
 /src/main/resources/database.*
+mvnw*
+*.iml

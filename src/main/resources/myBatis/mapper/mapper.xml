@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.rafa.gastos.myBatisMapper.MyBatisMapper">
+
+
+	<select id="getAllRents"
+		resultType="es.rafa.gastos.dao.RentalDAO">
+		SELECT
+		id id,
+		RENTAL_TYPE_ID rentalType,
+		NAME name,
+		INITIAL_VALUE initialValue
+		FROM RENTAL WHERE RENTAL_TYPE_ID =
+		#{rentalType}
+	</select>
+
+	<select id="getAllYears" resultType="es.rafa.gastos.dao.YearDAO">
+		SELECT * FROM YEAR
+	</select>
+
+	<select id="getMonths" resultType="es.rafa.gastos.dao.MonthDAO">
+		SELECT * FROM MONTH
+	</select>
+
+	<select id="getRentalType"
+		resultType="es.rafa.gastos.dao.RentalTypeDAO">
+		SELECT * FROM RENTAL_TYPE
+	</select>
+
+	<select id="getAllMonthsByYear"
+		resultType="es.rafa.gastos.dao.MonthYearDAO">
+		SELECT my.ID id, my.YEAR_ID yearId, my.MONTH_ID monthId,
+		m.NAME monthName
+		FROM MONTH_YEAR my
+		JOIN MONTH m ON m.id = MONTH_ID
+		WHERE YEAR_ID = #{yearId}
+	</select>
+
+	<insert id="insertOrUpdateRental" useGeneratedKeys="true">
+		INSERT INTO
+		RENTAL
+		(RENTAL_TYPE_ID, NAME, INITIAL_VALUE)
+		VALUES
+		(#{rentalType.id},
+		#{name}, #{initialValue})
+	</insert>
+
+	<insert id="insertYear" useGeneratedKeys="true"
+		parameterType="es.rafa.gastos.dao.YearDAO">
+
+		INSERT INTO YEAR (NUMBER) VALUES (#{number})
+
+		<selectKey keyColumn="id" keyProperty="id" order="AFTER"
+			resultType="int">
+			SELECT MAX(id) id FROM YEAR
+		</selectKey>
+	</insert>
+
+	<insert id="insertYearWithRelationMonth" useGeneratedKeys="true"
+		parameterType="int">
+		INSERT INTO MONTH_YEAR (YEAR_ID, MONTH_ID)
+		SELECT y.id
+		YEAR_ID, m.id
+		MONTH_ID
+		FROM YEAR y
+		JOIN MONTH m
+		WHERE y.id = #{yearId}
+	</insert>
+
+	<select id="getAllExpenseType"
+		resultType="es.rafa.gastos.dao.ExpenseTypeDAO">
+		SELECT * FROM EXPENSE_TYPE
+	</select>
+
+	<insert id="addExpenseType" useGeneratedKeys="true"
+		parameterType="es.rafa.gastos.dao.ExpenseTypeDAO">
+
+		INSERT INTO EXPENSE_TYPE (NAME) VALUES (#{name})
+
+	</insert>
+
+	<select id="getAllRentExpenses"
+		resultType="es.rafa.gastos.dao.RentalExpenseDAO">
+		SELECT RE.ID id,
+		ET.ID expenseTypeId,
+		ET.NAME
+		expenseTypeName,
+		R.ID rentalId,
+		R.NAME rentalName,
+		RE.VALUE value
+		FROM
+		RENT_EXPENSE RE
+		JOIN EXPENSE_TYPE ET ON RE.EXPENSE_TYPE_ID = ET.ID
+		JOIN
+		RENTAL R ON
+		RE.RENTAL_ID = R.ID
+	</select>
+
+	<insert id="addRentalExpense"
+		parameterType="es.rafa.gastos.dao.ExpenseTypeDAO">
+		INSERT INTO RENT_EXPENSE (EXPENSE_TYPE_ID, RENTAL_ID,
+		VALUE)
+		VALUES
+		(#{expenseTypeId}, #{rentalId}, #{value})
+
+	</insert>
+
+</mapper>
