@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import es.rafa.gastos.dao.ExpenseTypeDAO;
 import es.rafa.gastos.dao.MonthDAO;
+import es.rafa.gastos.dao.MonthRentalExpenseDAO;
 import es.rafa.gastos.dao.MonthYearDAO;
 import es.rafa.gastos.dao.RentalDAO;
 import es.rafa.gastos.dao.RentalExpenseDAO;
@@ -38,5 +39,9 @@ public interface MyBatisMapper {
 	public List<RentalExpenseDAO> getAllRentExpenses();
 
 	public int addRentalExpense(RentalExpenseDAO expenseDAO);
+	
+	public List<MonthRentalExpenseDAO> getMonthExpenseByRentId(int rentalId);
+	
+	public int addMonthExpense(MonthRentalExpenseDAO monthExpense);
 
 }
