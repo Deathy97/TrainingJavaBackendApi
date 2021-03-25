@@ -106,7 +106,7 @@
 
 	</insert>
 
-	<select id="getMonthExpenseByRentId" resultType="es.rafa.gastos.dao.MonthExpenseDAO">
+	<select id="getMonthExpenseByRentId" resultType="es.rafa.gastos.dao.MonthRentalExpenseDAO">
 		SELECT me.ID ID, me.MONTH_YEAR_ID monthYearId, me.RENT_EXPENSE_ID rentExpenseId,
 		me.VALUE value, et.NAME expenseName
 		FROM MONTH_EXPENSE me
