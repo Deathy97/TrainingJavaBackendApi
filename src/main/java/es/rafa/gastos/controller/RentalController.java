@@ -44,26 +44,6 @@ public class RentalController {
 	
 	//TODO:  los *Expense tienen que ir en un controller a parte, toca refactorizar
 	
-	
-	/*
-	 	Maybe interfaz funcional para esto testService::getAllRentalExpenses
-	 */
-	
-	@GetMapping("/getAllRentalExpense")
-	public ResponseEntity getRentalExpense() {
-		return new ResponseEntity<>(testService.getAllRentalExpenses(), HttpStatus.OK);
-	}
 
-	
-	/*
-		Tiene sentido pasar el Optional tal cual en estos casos y tratarlo en el Service?
-		Si es asi, en el mapper tiene que esperar un Optional.
-	 */
-	@PostMapping("/addRentalExpense")
-	public ResponseEntity addRentalExpense(@RequestBody Optional<RentalExpenseDTO> rentalExpense) {
-
-		return new ResponseEntity<>(rentalExpense.map(testService::addRentalExpense), HttpStatus.OK);
-
-	}
 	
 }

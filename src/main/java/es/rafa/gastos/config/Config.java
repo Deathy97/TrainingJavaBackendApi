@@ -1,22 +1,10 @@
 package es.rafa.gastos.config;
 
+import es.rafa.gastos.controller.RentalExpensesService;
+import es.rafa.gastos.mappers.*;
+import es.rafa.gastos.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import es.rafa.gastos.mappers.ExpenseTypeMapper;
-import es.rafa.gastos.mappers.MonthByYearMapper;
-import es.rafa.gastos.mappers.MonthRentalExpenseMappper;
-import es.rafa.gastos.mappers.MonthMapper;
-import es.rafa.gastos.mappers.RentMapper;
-import es.rafa.gastos.mappers.RentalExpenseMapper;
-import es.rafa.gastos.mappers.RentalTypeMapper;
-import es.rafa.gastos.mappers.YearMapper;
-import es.rafa.gastos.service.ExpenseService;
-import es.rafa.gastos.service.ExpenseServiceImpl;
-import es.rafa.gastos.service.MonthRentalExpenseService;
-import es.rafa.gastos.service.MonthRentalExpenseServiceImpl;
-import es.rafa.gastos.service.TestService;
-import es.rafa.gastos.service.TestServiceImpl;
 
 @Configuration
 public class Config {
@@ -24,6 +12,11 @@ public class Config {
 	@Bean
 	public TestService getTestService() {
 		return new TestServiceImpl();
+	}
+
+	@Bean
+	public RentalExpensesService getRentalExpensesService() {
+		return new RentalExpensesServiceImpl();
 	}
 
 	@Bean
